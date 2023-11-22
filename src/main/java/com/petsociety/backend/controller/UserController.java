@@ -27,25 +27,25 @@ public class UserController {
     @Autowired
     UserService sserv;
 
-    // C - Create a Student Record
+    // C - Create a User Record
     @PostMapping("/insertUser")
     public UserEntity insertUser(@RequestBody UserEntity user) {
         return sserv.insertUser(user);
     }
 
-    // R - Read a Student Record
+    // R - Read a User Record
     @GetMapping("/getAllUsers")
     public List<UserEntity> getAllUsers() {
         return sserv.getAllUsers();
     }
 
-    // U - Update a Student Record
+    // U - Update a User Record
     @PutMapping("/updateUser")
     public UserEntity updateUser(@RequestParam int userID, @RequestBody UserEntity newUserDetails) {
         return sserv.updateUser(userID, newUserDetails);
     }
 
-    // D - Delete a Student Record
+    // D - Delete a User Record
     @DeleteMapping("/deleteUser/{userID}")
     public String deleteStudent(@PathVariable int userID) {
         return sserv.deleteUser(userID);
