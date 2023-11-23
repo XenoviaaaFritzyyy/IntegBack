@@ -46,19 +46,11 @@ public class UserEntity {
         this.contact = contact;
         this.role = role;
     }
-
-    private static boolean firstEntryPersisted = false;
-
+    
     @PrePersist
     public void prePersist() {
-        // Set the role to "admin" for the first entry
-        if (!firstEntryPersisted) {
-            this.role = "admin";
-            firstEntryPersisted = true;
-        } else {
-            // Set the role to "user" for subsequent entries
-            this.role = "user";
-        }
+        // Set the role to "user" for all entries
+        this.role = "user";
     }
 
     public int getUserID() {
