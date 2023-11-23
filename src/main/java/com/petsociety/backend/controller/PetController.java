@@ -48,4 +48,11 @@ public class PetController {
     public String deletePet(@PathVariable int petID) {
         return petService.deletePet(petID);
     }
+    
+    
+    @GetMapping("/info/{petID}")
+    public PetEntity getpetbyID(@PathVariable int petID) {
+        return petService.getPetID(petID);
+    }
+
 }
