@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.petsociety.backend.entity.PetEntity;
 import com.petsociety.backend.repository.PetRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class PetService {
 
@@ -58,5 +60,11 @@ public class PetService {
         } else
             msg = "Pet " + petID + " does not exist!";
         return msg;
+    }
+
+    // Get Pet ID
+    public PetEntity getPetID(int petID){
+        return petRepo.findById(petID)
+        .orElseThrow(()-> new EntityNotFoundException("Pet not found"));
     }
 }

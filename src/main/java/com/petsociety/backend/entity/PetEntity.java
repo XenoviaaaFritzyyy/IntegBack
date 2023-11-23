@@ -37,7 +37,7 @@ public class PetEntity {
     private String size;
 
     @Column(name = "vaccinated")
-    private boolean vaccinated;
+    private String vaccinated;
 
     @Column(name = "photo_path")
     private String photoPath;
@@ -47,7 +47,7 @@ public class PetEntity {
     }
 
     public PetEntity(int petID, String name, String description, int age, String temperament, String color,
-            String gender, String size, boolean vaccinated, String photoPath) {
+            String gender, String size, String vaccinated, String photoPath) {
         this.petID = petID;
         this.name = name;
         this.description = description;
@@ -124,11 +124,11 @@ public class PetEntity {
         this.size = size;
     }
 
-    public boolean isVaccinated() {
+    public String isVaccinated() {
         return vaccinated;
     }
 
-    public void setVaccinated(boolean vaccinated) {
+    public void setVaccinated(String vaccinated) {
         this.vaccinated = vaccinated;
     }
 
