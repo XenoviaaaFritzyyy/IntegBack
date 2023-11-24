@@ -2,6 +2,7 @@ package com.petsociety.backend.service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,14 +54,21 @@ public class PetService {
     // D - DELETE A RECORD IN tblPet
     public String deletePet(int petID) {
         String msg = "";
-
-        if (petRepo.findById(petID).isPresent()) {
-            petRepo.deleteById(petID);
+    
+        Optional<PetEntity> optionalPet = petRepo.findById(petID);
+    
+        if (optionalPet.isPresent()) {
+            PetEntity pet = optionalPet.get();
+            pet.setDeleted(true);
+            petRepo.save(pet); // Use delete method to delete the entity
             msg = "Pet " + petID + " is successfully deleted!";
-        } else
+        } else {
             msg = "Pet " + petID + " does not exist!";
+        }
+    
         return msg;
     }
+    
 
     // Get Pet ID
     public PetEntity getPetID(int petID){

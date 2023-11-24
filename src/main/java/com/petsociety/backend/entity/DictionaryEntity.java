@@ -27,6 +27,7 @@ public class DictionaryEntity {
 		this.dicID = dicID;
 		this.entry = entry;
 		this.description = description;
+		this.isDeleted = isDeleted;
 	}
 
 	public int getDicID() {

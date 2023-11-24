@@ -1,6 +1,8 @@
 package com.petsociety.backend.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,10 +58,19 @@ public class UserController {
         String email = user.getEmail();
         String password = user.getPassword();
 
-        if (sserv.authenticateUser(email, password)) {
-            return new ResponseEntity<>(HttpStatus.OK);
+        UserEntity authenticatedUser = sserv.authenticateUser(email, password);
+
+        if (authenticatedUser != null) {
+            // Assuming UserEntity has a getUserId() method to get the userID
+            int userID = authenticatedUser.getUserID();
+            // You can include additional user information in the response if needed
+            Map<String, Object> response = new HashMap<>();
+            response.put("userId", userID);
+            response.put("message", "Authentication successful");
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Authentication failed", HttpStatus.UNAUTHORIZED);
         }
     }
 }
