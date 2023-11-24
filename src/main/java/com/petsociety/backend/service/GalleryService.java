@@ -37,11 +37,9 @@ public class GalleryService {
         GalleryEntity entry = new GalleryEntity();
         try {
             // Search the id number of the student will be updated
-            // entry = srepo.findById(galID).get();
-
-            // entry.setEntry(newEntryDetails.getEntry());
-            // entry.setDescription(newEntryDetails.getDescription());
-            // entry.setIsDeleted(newEntryDetails.getIsDeleted());
+            entry = srepo.findById(galID).get();
+            entry.setName(newEntryDetails.getName());
+            entry.setDescription(newEntryDetails.getDescription());
 
         } catch (NoSuchElementException ex) {
             throw new NoSuchElementException("Entry " + galID + "does not exist!");

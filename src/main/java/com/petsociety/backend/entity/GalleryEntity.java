@@ -13,20 +13,17 @@ public class GalleryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int galID;
-
-    // private String entry;
-    // private String description;
-    // private boolean isDeleted;
+    private String name;
+    private String description;
 
     public GalleryEntity() {
         super();
     }
 
-    public GalleryEntity(int galID/* , String entry, String description, boolean isDeleted */) {
-        super();
+    public GalleryEntity(int galID, String name, String description) {
         this.galID = galID;
-        // this.entry = entry;
-        // this.description = description;
+        this.name = name;
+        this.description = description;
     }
 
     public int getDicID() {
@@ -37,28 +34,20 @@ public class GalleryEntity {
         this.galID = dicID;
     }
 
-    // public String getEntry() {
-    // return entry;
-    // }
+    public String getName() {
+        return name;
+    }
 
-    // public void setEntry(String entry) {
-    // this.entry = entry;
-    // }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    // public String getDescription() {
-    // return description;
-    // }
+    public String getDescription() {
+        return description;
+    }
 
-    // public void setDescription(String description) {
-    // this.description = description;
-    // }
-
-    // public boolean getIsDeleted() {
-    // return isDeleted;
-    // }
-
-    // public void setIsDeleted(boolean isDeleted) {
-    // this.isDeleted = isDeleted;
-    // }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 }
