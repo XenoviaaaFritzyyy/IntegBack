@@ -41,6 +41,7 @@ public class ImageController {
             petEntity.setPhotoPath(image.getOriginalFilename());
             return petService.insertPet(petEntity);
         }   
+        
 
     @GetMapping("/{fileName}")
     public ResponseEntity<?> getImage(@PathVariable String fileName) {

@@ -42,12 +42,15 @@ public class PetEntity {
     @Column(name = "photo_path")
     private String photoPath;
 
+    @Column(name = "isDeleted")
+    private boolean isDeleted;
+
     public PetEntity() {
         super();
     }
 
     public PetEntity(int petID, String name, String description, int age, String temperament, String color,
-            String gender, String size, String vaccinated, String photoPath) {
+            String gender, String size, String vaccinated, String photoPath, boolean isDeleted) {
         this.petID = petID;
         this.name = name;
         this.description = description;
@@ -58,6 +61,7 @@ public class PetEntity {
         this.size = size;
         this.vaccinated = vaccinated;
         this.photoPath = photoPath;
+        this.isDeleted = isDeleted;
     }
 
     public int getPetID() {
@@ -140,5 +144,12 @@ public class PetEntity {
         this.photoPath = photoPath;
     }
 
-   
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
 }
