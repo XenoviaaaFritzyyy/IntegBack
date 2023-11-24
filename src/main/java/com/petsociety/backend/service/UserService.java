@@ -59,8 +59,7 @@ public class UserService {
         return msg;
     }
 
-    public boolean authenticateUser(String email, String password) {
-        UserEntity user = srepo.findByEmailAndPassword(email, password);
-        return user != null;
+    public UserEntity authenticateUser(String email, String password) {
+        return srepo.findByEmailAndPassword(email, password);
     }
 }
