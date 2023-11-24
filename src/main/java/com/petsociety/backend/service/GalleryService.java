@@ -1,0 +1,70 @@
+package com.petsociety.backend.service;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.petsociety.backend.entity.GalleryEntity;
+import com.petsociety.backend.repository.GalleryRepository;
+
+@Service
+public class GalleryService {
+    @Autowired
+    GalleryRepository srepo;
+
+    // C - CREATE OR INSERT STUDENT RECORD IN tblStudent
+    public GalleryEntity insertGallery(GalleryEntity entry) {
+        return srepo.save(entry);
+    }
+
+    // R - READ ALL RECORDS IN tlbStudebt
+    public List<GalleryEntity> getAllGallerys() {
+        return srepo.findAll();
+    }
+
+    // Read a Single Entry by DictionaryID
+    public GalleryEntity getGalleryById(int galID) {
+        return srepo.findById(galID)
+                .orElseThrow(() -> new NoSuchElementException("Entry " + galID + " does not exist!"));
+    }
+
+    // U - UPDATE A RECORD IN tlbStudent
+    @SuppressWarnings("finally")
+    public GalleryEntity updateGallery(int galID, GalleryEntity newEntryDetails) {
+        GalleryEntity entry = new GalleryEntity();
+        try {
+            // Search the id number of the student will be updated
+            // entry = srepo.findById(galID).get();
+
+            // entry.setEntry(newEntryDetails.getEntry());
+            // entry.setDescription(newEntryDetails.getDescription());
+            // entry.setIsDeleted(newEntryDetails.getIsDeleted());
+
+        } catch (NoSuchElementException ex) {
+            throw new NoSuchElementException("Entry " + galID + "does not exist!");
+        } finally {
+            return srepo.save(entry);
+        }
+    }
+
+    // D - DELETE A RECORD IN tlbStudent
+    public String deleteGallery(int galID) {
+        String msg = "";
+
+        Optional<GalleryEntity> optionalGallery = srepo.findById(galID);
+
+        if (optionalGallery.isPresent()) {
+            GalleryEntity entry = optionalGallery.get();
+            // entry.setIsDeleted(true); // Update the isDeleted field
+            srepo.save(entry); // Save the updated entity back to the database
+            msg = "Entry " + galID + " is successfully 'deleted'!";
+        } else {
+            msg = "Entry " + galID + " does not exist!";
+        }
+
+        return msg;
+    }
+}
