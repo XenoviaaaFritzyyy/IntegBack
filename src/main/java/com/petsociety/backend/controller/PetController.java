@@ -49,7 +49,7 @@ public class PetController {
         return petService.deletePet(petID);
     }
     
-    
+    //get speicific pet info
     @GetMapping("/info/{petID}")
     public PetEntity getpetbyID(@PathVariable int petID) {
         return petService.getPetID(petID);
