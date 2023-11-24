@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.petsociety.backend.entity.GalleryEntity;
 import com.petsociety.backend.repository.GalleryRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class GalleryService {
     @Autowired
@@ -56,13 +58,18 @@ public class GalleryService {
 
         if (optionalGallery.isPresent()) {
             GalleryEntity entry = optionalGallery.get();
-            // entry.setIsDeleted(true); // Update the isDeleted field
+            entry.setIsDeleted(true); // Update the isDeleted field
             srepo.save(entry); // Save the updated entity back to the database
             msg = "Entry " + galID + " is successfully 'deleted'!";
         } else {
             msg = "Entry " + galID + " does not exist!";
         }
-
         return msg;
+    }
+
+    // Get Gallery ID
+    public GalleryEntity getGalleryID(int galleryID) {
+        return srepo.findById(galleryID)
+                .orElseThrow(() -> new EntityNotFoundException("Galelry not found"));
     }
 }

@@ -15,22 +15,26 @@ public class GalleryEntity {
     private int galID;
     private String name;
     private String description;
+    private String photoPath;
+    private boolean isDeleted;
 
     public GalleryEntity() {
         super();
     }
 
-    public GalleryEntity(int galID, String name, String description) {
+    public GalleryEntity(int galID, String name, String description, String photoPath, boolean isDeleted) {
         this.galID = galID;
         this.name = name;
         this.description = description;
+        this.isDeleted = isDeleted;
+        this.photoPath = photoPath;
     }
 
-    public int getDicID() {
+    public int getGalID() {
         return galID;
     }
 
-    public void setDicID(int dicID) {
+    public void setGalID(int dicID) {
         this.galID = dicID;
     }
 
@@ -48,6 +52,22 @@ public class GalleryEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
+    public boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
 }
