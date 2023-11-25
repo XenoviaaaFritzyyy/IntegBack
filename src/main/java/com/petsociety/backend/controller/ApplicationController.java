@@ -36,6 +36,8 @@ public class ApplicationController {
         return sserv.getAllApplication();
     }
 
+
+    // D - Delete Record
     @PutMapping("/deleteApplication/{applicationID}")  // Corrected the path variable name
     public String deleteApplication(@PathVariable int applicationID) {
         return sserv.deleteApplication(applicationID);
