@@ -4,8 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,15 +27,10 @@ public class ApplicationEntity {
 	private String landlordContact;
 
     private Boolean isDeleted;
-    private String requestStatus = "Pending";
 
-    @ManyToOne
-    @JoinColumn(name = "fk_userID")
-    private UserEntity user;
+    private int fk_petID;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_petID")
-    private PetEntity pet;
+    private int fk_userID;
 
 	public ApplicationEntity() {
 		super();
@@ -45,7 +38,7 @@ public class ApplicationEntity {
 
 	public ApplicationEntity(int applicationID, String fname, String lname, String address, String city, String state,
 			int noAdults, int noChildren, String desHousehold, String typeResidence, String rentHome,
-			String landlordContact, Boolean isDeleted, String requestStatus, UserEntity user, PetEntity pet) {
+			String landlordContact, Boolean isDeleted, int fk_petID, int fk_userID) {
 		super();
 		this.applicationID = applicationID;
 		this.fname = fname;
@@ -60,9 +53,8 @@ public class ApplicationEntity {
 		this.rentHome = rentHome;
 		this.landlordContact = landlordContact;
 		this.isDeleted = isDeleted;
-		this.requestStatus = requestStatus;
-		this.user = user;
-		this.pet = pet;
+		this.fk_petID = fk_petID;
+		this.fk_userID = fk_userID;
 	}
 
 	public int getApplicationID() {
@@ -169,27 +161,19 @@ public class ApplicationEntity {
 		this.isDeleted = isDeleted;
 	}
 
-	public String getRequestStatus() {
-		return requestStatus;
+	public int getFk_petID() {
+		return fk_petID;
 	}
 
-	public void setRequestStatus(String requestStatus) {
-		this.requestStatus = requestStatus;
+	public void setFk_petID(int fk_petID) {
+		this.fk_petID = fk_petID;
 	}
 
-	public UserEntity getUser() {
-		return user;
+	public int getFk_userID() {
+		return fk_userID;
 	}
 
-	public void setUser(UserEntity user) {
-		this.user = user;
-	}
-
-	public PetEntity getPet() {
-		return pet;
-	}
-
-	public void setPet(PetEntity pet) {
-		this.pet = pet;
+	public void setFk_userID(int fk_userID) {
+		this.fk_userID = fk_userID;
 	}
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.petsociety.backend.entity.ApplicationEntity;
-import com.petsociety.backend.service.ApplicationSerive;
+import com.petsociety.backend.service.ApplicationService;
 
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -22,7 +22,7 @@ import com.petsociety.backend.service.ApplicationSerive;
 public class ApplicationController {
 
     @Autowired
-    ApplicationSerive sserv;
+    ApplicationService sserv;
     
     // C - Create a Student Record
     @PostMapping("/insertApplication")
@@ -34,12 +34,6 @@ public class ApplicationController {
     @GetMapping("/getAllApplication")
     public List<ApplicationEntity> getAllApplication() {
         return sserv.getAllApplication();
-    }
-
-    // U - Update a Student Record
-    @PutMapping("/updateApplication/{applicationID}")  // Corrected the path variable name
-    public ApplicationEntity updateApplication(@PathVariable int applicationID, @RequestBody ApplicationEntity newEntryDetails) {
-        return sserv.updateApplication(applicationID, newEntryDetails);
     }
 
     @PutMapping("/deleteApplication/{applicationID}")  // Corrected the path variable name
