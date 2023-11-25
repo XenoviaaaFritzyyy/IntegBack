@@ -49,9 +49,9 @@ public class GalleryController {
         return galleryService.deleteGallery(galID);
     }
 
-    @GetMapping("/info/{galleryID}")
+    @GetMapping("/info/{galID}")
     public GalleryEntity getGalleryById(@PathVariable int galID) {
-        return galleryService.getGalleryById(galID);
+        return galleryService.getGalleryID(galID);
     }
 
 }
