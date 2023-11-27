@@ -32,12 +32,12 @@ public class ApplicationEntity {
     private Boolean isDeleted;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_userID")
-    private UserEntity user;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_petID")
-    private PetEntity pet;
+	@JoinColumn(name = "fk_userID")
+	private UserEntity user;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_petID")
+	private PetEntity pet;
 
 	public ApplicationEntity() {
 		super();

@@ -1,6 +1,7 @@
 package com.petsociety.backend.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,10 @@ public class UserService {
 
     public UserEntity authenticateUser(String email, String password) {
         return srepo.findByEmailAndPassword(email, password);
+    }
+
+    // Find a user by ID
+    public Optional<UserEntity> findUserById(int userID) {
+        return srepo.findById(userID);
     }
 }
