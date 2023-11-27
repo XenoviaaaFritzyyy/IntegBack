@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 import com.petsociety.backend.entity.ApplicationEntity;
 import com.petsociety.backend.repository.ApplicationRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ApplicationService {
 	@Autowired
 	ApplicationRepository srepo;
 	
 	// C - CREATE OR INSERT STUDENT RECORD IN tblStudent
+	@Transactional
 	public ApplicationEntity insertApplication(ApplicationEntity application) {
 		return srepo.save(application);
 	}

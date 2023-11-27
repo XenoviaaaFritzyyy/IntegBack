@@ -3,6 +3,7 @@ package com.petsociety.backend.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -72,6 +73,18 @@ public class UserController {
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Authentication failed", HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<?> getUserById(@PathVariable int userId) {
+        Optional<UserEntity> userOptional = sserv.findUserById(userId);
+    
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("User not found with ID: " + userId, HttpStatus.NOT_FOUND);
         }
     }
 
