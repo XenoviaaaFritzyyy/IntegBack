@@ -6,8 +6,11 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.petsociety.backend.entity.UserEntity;
 import com.petsociety.backend.repository.UserRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UserService {
@@ -61,5 +64,11 @@ public class UserService {
 
     public UserEntity authenticateUser(String email, String password) {
         return srepo.findByEmailAndPassword(email, password);
+    }
+
+    //get specific
+     public UserEntity getUserID(int userID) {
+        return srepo.findById(userID)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 }
