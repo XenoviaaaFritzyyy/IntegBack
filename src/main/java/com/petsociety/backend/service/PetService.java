@@ -43,7 +43,7 @@ public class PetService {
             pet.setColor(newPetDetails.getColor());
             pet.setGender(newPetDetails.getGender());
             pet.setSize(newPetDetails.getSize());
-            pet.setVaccinated(newPetDetails.isVaccinated());
+            pet.setVaccinated(newPetDetails.getVaccinated());
         } catch (NoSuchElementException ex) {
             throw new NoSuchElementException("Pet " + petID + " does not exist!");
         } finally {

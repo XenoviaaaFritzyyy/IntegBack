@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.petsociety.backend.entity.UserEntity;
 import com.petsociety.backend.service.UserService;
 
@@ -85,5 +86,10 @@ public class UserController {
         } else {
             return new ResponseEntity<>("User not found with ID: " + userId, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/info/{userID}")
+    public UserEntity getuserbyID(@PathVariable int userID) {
+        return sserv.getUserID(userID);
     }
 }

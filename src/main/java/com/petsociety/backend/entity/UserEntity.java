@@ -28,13 +28,14 @@ public class UserEntity {
     private String address;
     private String contact;
     private String role;
+    private String photoPath;
 
     public UserEntity() {
         super();
     }
 
     public UserEntity(int userID, String fname, String lname, String password, String email, String gender,
-            String address, String contact, String role) {
+            String address, String contact, String role, String photoPath) {
         super();
         this.userID = userID;
         this.fname = fname;
@@ -45,6 +46,7 @@ public class UserEntity {
         this.address = address;
         this.contact = contact;
         this.role = role;
+        this.photoPath = photoPath;
     }
     
     @PrePersist
@@ -123,6 +125,14 @@ public class UserEntity {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 
 }
