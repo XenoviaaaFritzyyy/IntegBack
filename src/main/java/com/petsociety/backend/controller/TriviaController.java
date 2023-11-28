@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.petsociety.backend.entity.TriviaEntity;
@@ -25,13 +26,13 @@ public class TriviaController {
 	@Autowired
 	TriviaService sserv;
 	
-	// C - Create a Student Record
+	// C - Create
 	@PostMapping("/insertTrivia")
 	public TriviaEntity insertTrivia(@RequestBody TriviaEntity entry) {
 		return sserv.insertTrivia(entry);
 	}
 	
-	// R - Read a Student Record
+	// R - Read
 	@GetMapping("/getAllTrivia")
 	public List<TriviaEntity> getAllTrivia(){
 		return sserv.getAllTrivia();
@@ -47,17 +48,19 @@ public class TriviaController {
 	    }
 	  }
 	
-	// U - Update a Student Record
-	 @PutMapping("/updateTrivia/{triviaID}")
-	 public TriviaEntity updateEntry(@PathVariable int triviaID, @RequestBody TriviaEntity newEntryDetails) {
-	     return sserv.updateTrivia(triviaID, newEntryDetails);
-	 }
-	
+	// U - Update 
+	@PutMapping("/updateTrivia")
+	public TriviaEntity updateTrivia(@RequestParam int triviaID, @RequestBody TriviaEntity newTriviaDetails) {
+		return sserv.updateTrivia(triviaID, newTriviaDetails);
+	}
+
+	// D - Delete
 	 @PutMapping("/deleteTrivia/{triviaID}")
 	 public String deleteEntry(@PathVariable int triviaID) {
 	     return sserv.deleteTrivia(triviaID);
 	 }
 	
+	 // Get Random Trivia
      @GetMapping("/getRandomTriviaDetails")
      public ResponseEntity<Map<String, Object>> getRandomTriviaDetails() {
          try {

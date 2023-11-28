@@ -1,11 +1,12 @@
     package com.petsociety.backend.service;
 
     import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+    import java.util.List;
+    import java.util.Map;
+    import java.util.NoSuchElementException;
     import java.util.Optional;
-import java.util.Random;
+    import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.stereotype.Service;
@@ -33,73 +34,68 @@ import org.springframework.beans.factory.annotation.Autowired;
             return srepo.findById(triviaID).orElseThrow(() -> new NoSuchElementException("Entry " + triviaID + " does not exist!"));
         }
         
-        // U - UPDATE A RECORD IN tlbStudent
+        // U - UPDATE A RECORD IN tblPet
         @SuppressWarnings("finally")
-        public TriviaEntity updateTrivia(int triviaID, TriviaEntity newEntryDetails) {
+        public TriviaEntity updateTrivia(int triviaID, TriviaEntity newTriviaDetails) {
             TriviaEntity trivia = new TriviaEntity();
             try {
-                // Search the id number of the student will be updated
+                // Search the id number of the pet that will be updated
                 trivia = srepo.findById(triviaID).get();
-                
-                trivia.setTitle(newEntryDetails.getTitle());
-                trivia.setContent(newEntryDetails.getContent());
-                trivia.setCategory(newEntryDetails.getCategory());
-                trivia.setAuthor(newEntryDetails.getAuthor());
-                trivia.setIsDeleted(newEntryDetails.getIsDeleted());
 
-            }catch(NoSuchElementException ex) {
-                throw new NoSuchElementException("Entry " + triviaID + "does not exist!");
-            }finally {
+                trivia.setTitle(newTriviaDetails.getTitle());
+                trivia.setContent(newTriviaDetails.getContent());
+                trivia.setAuthor(newTriviaDetails.getAuthor());
+                trivia.setCategory(newTriviaDetails.getCategory());
+
+            } catch (NoSuchElementException ex) {
+                throw new NoSuchElementException("Pet " + triviaID + " does not exist!");
+            } finally {
                 return srepo.save(trivia);
             }
         }
         
-        // D - DELETE A RECORD IN tlbStudent
-        public String deleteTrivia(int dicID) {
+        // D - DELETE TRIVIA
+        public String deleteTrivia(int triviaID) {
             String msg = "";
-            
-            Optional<TriviaEntity> optionalEntry = srepo.findById(dicID);
-            
+
+            Optional<TriviaEntity> optionalEntry = srepo.findById(triviaID);
+
             if (optionalEntry.isPresent()) {
                 TriviaEntity entry = optionalEntry.get();
-                entry.setIsDeleted(true); // Update the isDeleted field
-                srepo.save(entry); // Save the updated entity back to the database
-                msg = "Entry " + dicID + " is successfully 'deleted'!";
+                
+                entry.setIsDeleted(true);
+                srepo.save(entry);
+                msg = "Entry " + triviaID + " is successfully 'deleted'!";
             } else {
-                msg = "Entry " + dicID + " does not exist!";
+                msg = "Entry " + triviaID + " does not exist!";
             }
-            
             return msg;
         }
 
-    public Map<String, Object> getRandomTriviaDetails() {
-        try {
-            // Fetch all trivia entries
-            List<TriviaEntity> allTrivia = getAllTrivia();
-
-            // If there are no trivia entries, return an empty map or handle as needed
-            if (allTrivia.isEmpty()) {
-                return new HashMap<>();
+        public Map<String, Object> getRandomTriviaDetails() throws NoSuchElementException {
+            List<TriviaEntity> nonDeletedTrivia = getAllTrivia().stream()
+                    .filter(trivia -> !trivia.getIsDeleted())
+                    .collect(Collectors.toList());
+        
+            // If there are no non-deleted trivia entries, throw NoSuchElementException
+            if (nonDeletedTrivia.isEmpty()) {
+                throw new NoSuchElementException("No non-deleted trivia entries available");
             }
-
+        
             // Generate a random index
             Random random = new Random();
-            int randomIndex = random.nextInt(allTrivia.size());
-
-            // Get the random trivia entry
-            TriviaEntity randomTrivia = allTrivia.get(randomIndex);
-
+            int randomIndex = random.nextInt(nonDeletedTrivia.size());
+        
+            // Get the random non-deleted trivia entry
+            TriviaEntity randomTrivia = nonDeletedTrivia.get(randomIndex);
+        
             // Create a map with the desired fields
             Map<String, Object> triviaDetails = new HashMap<>();
             triviaDetails.put("author", randomTrivia.getAuthor());
             triviaDetails.put("category", randomTrivia.getCategory());
             triviaDetails.put("title", randomTrivia.getTitle());
             triviaDetails.put("content", randomTrivia.getContent());
-
+        
             return triviaDetails;
-        } catch (NoSuchElementException e) {
-            // Handle exceptions as needed
-            throw e;
         }
     }
-}
