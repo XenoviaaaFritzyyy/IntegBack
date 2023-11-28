@@ -128,7 +128,7 @@ public class PetEntity {
         this.size = size;
     }
 
-    public String isVaccinated() {
+    public String getVaccinated() {
         return vaccinated;
     }
 
