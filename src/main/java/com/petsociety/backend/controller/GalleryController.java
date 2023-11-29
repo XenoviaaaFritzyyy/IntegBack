@@ -44,7 +44,7 @@ public class GalleryController {
     }
 
     // D - Delete a Gallery Record
-    @DeleteMapping("/deleteGallery/{galID}")
+    @PutMapping("/deleteGallery/{galID}")
     public String deleteGallery(@PathVariable int galID) {
         return galleryService.deleteGallery(galID);
     }
