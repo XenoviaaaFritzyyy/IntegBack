@@ -39,7 +39,6 @@ public class UserService {
 
             user.setFname(newUserDetails.getFname());
             user.setLname(newUserDetails.getLname());
-            user.setPassword(newUserDetails.getPassword());
             user.setEmail(newUserDetails.getEmail());
             user.setGender(newUserDetails.getGender());
             user.setAddress(newUserDetails.getAddress());
