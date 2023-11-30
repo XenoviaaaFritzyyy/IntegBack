@@ -31,13 +31,13 @@ public class ApplicationEntity {
 
     private Boolean isDeleted;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_userID")
-	private UserEntity user;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_petID")
-	private PetEntity pet;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_userID")
+    private UserEntity user;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_petID")
+    private PetEntity pet;
 
 	public ApplicationEntity() {
 		super();
@@ -166,4 +166,19 @@ public class ApplicationEntity {
 		this.isDeleted = isDeleted;
 	}
 
+	public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setPet(PetEntity pet) {
+        this.pet = pet;
+    }
+
+    public PetEntity getPet() {
+        return pet;
+    }
 }
