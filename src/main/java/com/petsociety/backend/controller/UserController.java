@@ -59,17 +59,18 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody UserEntity user) {
         String email = user.getEmail();
         String password = user.getPassword();
-
+    
         UserEntity authenticatedUser = sserv.authenticateUser(email, password);
-
+    
         if (authenticatedUser != null) {
-            // Assuming UserEntity has a getUserId() method to get the userID
             int userID = authenticatedUser.getUserID();
-            // You can include additional user information in the response if needed
+            String userRole = authenticatedUser.getRole();
+    
             Map<String, Object> response = new HashMap<>();
             response.put("userId", userID);
+            response.put("userRole", userRole);
             response.put("message", "Authentication successful");
-
+    
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Authentication failed", HttpStatus.UNAUTHORIZED);
