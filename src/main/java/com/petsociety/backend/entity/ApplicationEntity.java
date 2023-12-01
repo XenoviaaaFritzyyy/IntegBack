@@ -30,6 +30,8 @@ public class ApplicationEntity {
 	private String landlordContact;
 
     private Boolean isDeleted;
+	private String status = "Pending";
+    private String message = "Thank you for sending your application form, we will be reviewing it.";
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_userID")
@@ -165,6 +167,22 @@ public class ApplicationEntity {
 	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
+
+	public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
 	public void setUser(UserEntity user) {
         this.user = user;
