@@ -56,29 +56,13 @@ import java.util.Optional;
 				
 				entry.setStatus(newEntryDetails.getStatus());
 				entry.setMessage(newEntryDetails.getMessage());
+				entry.setIsDeleted(newEntryDetails.getIsDeleted());
+
 
 			}catch(NoSuchElementException ex) {
 				throw new NoSuchElementException("Entry " + applicationID + "does not exist!");
 			}finally {
 				return srepo.save(entry);
 			}
-		}
-		
-		// D - DELETE RECORD
-		public String deleteApplication(int applicationID) {
-			String msg = "";
-	
-			Optional<ApplicationEntity> optionalEntry = srepo.findById(applicationID);
-	
-			if (optionalEntry.isPresent()) {
-				ApplicationEntity entry = optionalEntry.get();
-				entry.setIsDeleted(true); // Update the isDeleted field
-				srepo.save(entry); // Save the updated entity back to the database
-				msg = "Application " + applicationID + " is successfully 'deleted'!";
-			} else {
-				msg = "Application " + applicationID + " does not exist!";
-			}
-	
-			return msg;
 		}
 }
