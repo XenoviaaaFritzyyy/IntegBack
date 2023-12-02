@@ -6,9 +6,9 @@
     import java.util.NoSuchElementException;
     import java.util.Optional;
     import java.util.Random;
-import java.util.stream.Collectors;
+    import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.stereotype.Service;
 
     import com.petsociety.backend.entity.TriviaEntity;

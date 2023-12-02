@@ -70,6 +70,6 @@ public class GalleryService {
     // Get Gallery ID
     public GalleryEntity getGalleryID(int galleryID) {
         return srepo.findById(galleryID)
-                .orElseThrow(() -> new EntityNotFoundException("Galelry not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Gallery not found"));
     }
 }

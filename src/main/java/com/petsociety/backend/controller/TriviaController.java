@@ -67,7 +67,6 @@ public class TriviaController {
              Map<String, Object> triviaDetails = sserv.getRandomTriviaDetails();
              return ResponseEntity.ok().body(triviaDetails);
          } catch (Exception e) {
-             // Handle exceptions as needed
              return ResponseEntity.status(500).build();
          }
      }
