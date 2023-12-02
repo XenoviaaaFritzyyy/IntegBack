@@ -17,7 +17,7 @@ import com.petsociety.backend.entity.ForumEntity;
 import com.petsociety.backend.service.ForumService;
 
 @RestController
-@RequestMapping("/gallery")
+@RequestMapping("/forum")
 @CrossOrigin(origins = "http://localhost:3000")
 public class ForumController {
 
