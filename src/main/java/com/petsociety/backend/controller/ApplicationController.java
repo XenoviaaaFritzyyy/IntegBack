@@ -37,9 +37,9 @@ public class ApplicationController {
             ApplicationEntity createdApplication = sserv.insertApplication(application, petId, userId);
             return new ResponseEntity<>(createdApplication, HttpStatus.CREATED);
         } catch (ResponseStatusException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Handle not found exceptions
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // Handle other exceptions
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); 
         }
     }
 

@@ -19,27 +19,26 @@
             @Autowired
         TriviaRepository srepo;
         
-        // C - CREATE OR INSERT STUDENT RECORD IN tblStudent
+        // C - CREATE OR INSERT
         public TriviaEntity insertTrivia(TriviaEntity entry) {
             return srepo.save(entry);
         }
         
-        // R - READ ALL RECORDS IN tlbStudebt
+        // R - READ ALL RECORDS
         public List<TriviaEntity> getAllTrivia(){
             return srepo.findAll();
         }
         
-        // Read a Single Entry by DictionaryID
+        // Read a Single Entry
         public TriviaEntity getTriviaById(int triviaID) {
             return srepo.findById(triviaID).orElseThrow(() -> new NoSuchElementException("Entry " + triviaID + " does not exist!"));
         }
         
-        // U - UPDATE A RECORD IN tblPet
+        // U - UPDATE A RECORD
         @SuppressWarnings("finally")
         public TriviaEntity updateTrivia(int triviaID, TriviaEntity newTriviaDetails) {
             TriviaEntity trivia = new TriviaEntity();
             try {
-                // Search the id number of the pet that will be updated
                 trivia = srepo.findById(triviaID).get();
 
                 trivia.setTitle(newTriviaDetails.getTitle());
