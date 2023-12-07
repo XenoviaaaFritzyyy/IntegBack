@@ -19,7 +19,6 @@ import org.springframework.web.server.ResponseStatusException;
 import com.petsociety.backend.entity.ApplicationEntity;
 import com.petsociety.backend.service.ApplicationService;
 
-
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/application")
@@ -27,19 +26,19 @@ public class ApplicationController {
 
     @Autowired
     ApplicationService sserv;
-    
+
     // C - Create RECORD
     @PostMapping("/insertApplication")
     public ResponseEntity<ApplicationEntity> insertApplication(@RequestBody ApplicationEntity application,
-                                                              @RequestParam("petId") int petId,
-                                                              @RequestParam("userId") int userId) {
+            @RequestParam("petId") int petId,
+            @RequestParam("userId") int userId) {
         try {
             ApplicationEntity createdApplication = sserv.insertApplication(application, petId, userId);
             return new ResponseEntity<>(createdApplication, HttpStatus.CREATED);
         } catch (ResponseStatusException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); 
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -49,10 +48,10 @@ public class ApplicationController {
         return sserv.getAllApplication();
     }
 
-
-	// U - Update RECORD
-	 @PutMapping("/updateApplicationStatus/{applicationID}")
-	 public ApplicationEntity updateEntry(@PathVariable int applicationID, @RequestBody ApplicationEntity newEntryDetails) {
-	     return sserv.updateEntry(applicationID, newEntryDetails);
-	 }
+    // U - Update RECORD
+    @PutMapping("/updateApplicationStatus/{applicationID}")
+    public ApplicationEntity updateEntry(@PathVariable int applicationID,
+            @RequestBody ApplicationEntity newEntryDetails) {
+        return sserv.updateEntry(applicationID, newEntryDetails);
+    }
 }
