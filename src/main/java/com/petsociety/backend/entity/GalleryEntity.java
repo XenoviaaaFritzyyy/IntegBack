@@ -1,9 +1,12 @@
 package com.petsociety.backend.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,6 +20,10 @@ public class GalleryEntity {
     private String description;
     private String photoPath;
     private boolean isDeleted;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_userID")
+    private UserEntity user;
 
     public GalleryEntity() {
         super();
@@ -68,6 +75,14 @@ public class GalleryEntity {
 
     public void setIsDeleted(boolean isDeleted) {
         this.isDeleted = isDeleted;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public UserEntity getUser() {
+        return user;
     }
 
 }

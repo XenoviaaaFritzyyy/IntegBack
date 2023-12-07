@@ -31,14 +31,15 @@ public class GImageController {
     @Autowired
     GalleryService galleryService;
 
-    @PostMapping("/insertGallery/{galleryID}")
+    @PostMapping("/insertGallery/{galleryID}/{userId}")
     public GalleryEntity addImage(
             @PathVariable int galleryID,
+            @PathVariable int userId,
             @RequestParam("image") MultipartFile image) throws IOException {
         imageService.uploadImage(image);
         GalleryEntity galleryEntity = galleryService.getGalleryID(galleryID);
         galleryEntity.setPhotoPath(image.getOriginalFilename());
-        return galleryService.insertGallery(galleryEntity);
+        return galleryService.insertGallery(galleryEntity, userId);
     }
 
     @GetMapping("/{fileName}")

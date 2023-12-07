@@ -5,10 +5,14 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.petsociety.backend.entity.GalleryEntity;
+import com.petsociety.backend.entity.UserEntity;
 import com.petsociety.backend.repository.GalleryRepository;
+import com.petsociety.backend.repository.UserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -17,8 +21,14 @@ public class GalleryService {
     @Autowired
     GalleryRepository srepo;
 
-    // C - CREATE OR INSERT STUDENT RECORD IN tblStudent
-    public GalleryEntity insertGallery(GalleryEntity entry) {
+    @Autowired
+    UserRepository userRepository;
+
+    public GalleryEntity insertGallery(GalleryEntity entry, int userId) {
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        entry.setUser(user);
+
         return srepo.save(entry);
     }
 
