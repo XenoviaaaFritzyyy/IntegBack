@@ -19,11 +19,9 @@ public class ForumEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int forumID;
     private String post;
-    private String reply;
     private LocalDateTime timestamp;
     private boolean isDeleted;
 
-    
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_userID")
     private UserEntity user;
@@ -32,10 +30,9 @@ public class ForumEntity {
         super();
     }
 
-    public ForumEntity(int forumID, String post, String reply, LocalDateTime timestamp, boolean isDeleted) {
+    public ForumEntity(int forumID, String post, LocalDateTime timestamp, boolean isDeleted) {
         this.forumID = forumID;
         this.post = post;
-        this.reply = reply;
         this.timestamp = timestamp;
         this.isDeleted = isDeleted;
     }
@@ -54,15 +51,7 @@ public class ForumEntity {
 
     public void setPost(String post) {
         this.post = post;
-    }
-
-    public String getReply() {
-        return reply;
-    }
-
-    public void setReply(String reply) {
-        this.reply = reply;
-    }
+    }   
 
     public LocalDateTime getTimestamp() {
         return timestamp;
