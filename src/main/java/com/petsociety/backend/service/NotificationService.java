@@ -20,14 +20,14 @@ public class NotificationService {
         notification.setUser(user);
         notification.setMessage(message);
         notification.setTimestamp(timestamp);
-        notification.setStatus(false); // Assuming false for unread
+        notification.setStatus(false); 
         notificationRepository.save(notification);
     }
 
     public List<NotificationEntity> getNotifications(UserEntity user) {
         List<NotificationEntity> notifications = notificationRepository.findByUserOrderByTimestampDesc(user);
 
-        // Mark notifications as read
+        
         for (NotificationEntity notification : notifications) {
             notification.setStatus(true);
         }
