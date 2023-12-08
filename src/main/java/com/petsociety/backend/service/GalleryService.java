@@ -34,7 +34,9 @@ public class GalleryService {
 
     // R - READ ALL RECORDS IN tlbStudebt
     public List<GalleryEntity> getAllGallerys() {
-        return srepo.findAll();
+        List<GalleryEntity> galleries = srepo.findAll();
+        galleries.forEach(gallery -> gallery.getUser().setPassword(null)); // Remove sensitive info
+        return galleries;
     }
 
     // Read a Single Entry by DictionaryID
