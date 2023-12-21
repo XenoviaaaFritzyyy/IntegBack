@@ -1,12 +1,14 @@
     package com.petsociety.backend.service;
 
     import java.util.HashMap;
-    import java.util.List;
+import java.util.HashSet;
+import java.util.List;
     import java.util.Map;
     import java.util.NoSuchElementException;
     import java.util.Optional;
     import java.util.Random;
-    import java.util.stream.Collectors;
+import java.util.Set;
+import java.util.stream.Collectors;
 
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.stereotype.Service;
@@ -71,30 +73,43 @@
             return msg;
         }
 
-        public Map<String, Object> getRandomTriviaDetails() throws NoSuchElementException {
-            List<TriviaEntity> nonDeletedTrivia = getAllTrivia().stream()
-                    .filter(trivia -> !trivia.getIsDeleted())
-                    .collect(Collectors.toList());
-        
-            // If there are no non-deleted trivia entries, throw NoSuchElementException
-            if (nonDeletedTrivia.isEmpty()) {
-                throw new NoSuchElementException("No non-deleted trivia entries available");
-            }
-        
-            // Generate a random index
-            Random random = new Random();
-            int randomIndex = random.nextInt(nonDeletedTrivia.size());
-        
-            // Get the random non-deleted trivia entry
-            TriviaEntity randomTrivia = nonDeletedTrivia.get(randomIndex);
-        
-            // Create a map with the desired fields
-            Map<String, Object> triviaDetails = new HashMap<>();
-            triviaDetails.put("author", randomTrivia.getAuthor());
-            triviaDetails.put("category", randomTrivia.getCategory());
-            triviaDetails.put("title", randomTrivia.getTitle());
-            triviaDetails.put("content", randomTrivia.getContent());
-        
-            return triviaDetails;
+
+	// Get Random Trivia Details
+    private Set<Long> displayedTriviaIds = new HashSet<>();
+
+    public Map<String, Object> getRandomTriviaDetails() throws NoSuchElementException {
+        List<TriviaEntity> nonDeletedTrivia = getAllNonDisplayedTrivia();
+
+        // If there are no non-deleted trivia entries, throw NoSuchElementException
+        if (nonDeletedTrivia.isEmpty()) {
+            // Reset the set when all trivia entries have been displayed
+            displayedTriviaIds.clear();
+            throw new NoSuchElementException("No non-deleted trivia entries available");
         }
+
+        // Generate a random index
+        Random random = new Random();
+        int randomIndex = random.nextInt(nonDeletedTrivia.size());
+
+        // Get the random non-deleted trivia entry
+        TriviaEntity randomTrivia = nonDeletedTrivia.get(randomIndex);
+
+        // Add the displayed trivia ID to the set
+        displayedTriviaIds.add((long) randomTrivia.getTriviaID());
+
+        // Create a map with the desired fields
+        Map<String, Object> triviaDetails = new HashMap<>();
+        triviaDetails.put("author", randomTrivia.getAuthor());
+        triviaDetails.put("category", randomTrivia.getCategory());
+        triviaDetails.put("title", randomTrivia.getTitle());
+        triviaDetails.put("content", randomTrivia.getContent());
+
+        return triviaDetails;
     }
+
+    private List<TriviaEntity> getAllNonDisplayedTrivia() {
+        return getAllTrivia().stream()
+                .filter(trivia -> !trivia.getIsDeleted() && !displayedTriviaIds.contains((long) trivia.getTriviaID()))
+                .collect(Collectors.toList());
+    }
+}

@@ -34,7 +34,6 @@ public class GalleryService {
 
     // R - READ ALL RECORDS IN tlbStudebt
     public List<GalleryEntity> getAllGallerys() {
-        
         return srepo.findAll();
     }
 

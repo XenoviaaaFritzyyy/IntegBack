@@ -1,10 +1,12 @@
 package com.petsociety.backend.controller;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,14 +62,19 @@ public class TriviaController {
 	     return sserv.deleteTrivia(triviaID);
 	 }
 	
-	 // Get Random Trivia
-     @GetMapping("/getRandomTriviaDetails")
-     public ResponseEntity<Map<String, Object>> getRandomTriviaDetails() {
-         try {
-             Map<String, Object> triviaDetails = sserv.getRandomTriviaDetails();
-             return ResponseEntity.ok().body(triviaDetails);
-         } catch (Exception e) {
-             return ResponseEntity.status(500).build();
-         }
-     }
+
+	// Get Random Trivia Details
+	@GetMapping("/getRandomTriviaDetails")
+	public ResponseEntity<Map<String, Object>> getRandomTriviaDetails() {
+		try {
+			Map<String, Object> triviaDetails = sserv.getRandomTriviaDetails();
+			return ResponseEntity.ok().body(triviaDetails);
+		} catch (NoSuchElementException e) {
+			// Handle case where no non-deleted trivia entries are available
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("error", e.getMessage()));
+		} catch (Exception e) {
+			// Handle other exceptions with a 500 status
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("error", "Internal Server Error"));
+		}
+	}
 }
