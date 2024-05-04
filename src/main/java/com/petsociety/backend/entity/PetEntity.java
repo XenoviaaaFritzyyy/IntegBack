@@ -22,7 +22,7 @@ public class PetEntity {
     private String description;
 
     @Column(name = "age")
-    private int age;
+    private String age;
 
     @Column(name = "temperament")
     private String temperament;
@@ -49,7 +49,7 @@ public class PetEntity {
         super();
     }
 
-    public PetEntity(int petID, String name, String description, int age, String temperament, String color,
+    public PetEntity(int petID, String name, String description, String age, String temperament, String color,
             String gender, String size, String vaccinated, String photoPath, boolean isDeleted) {
         this.petID = petID;
         this.name = name;
@@ -88,11 +88,11 @@ public class PetEntity {
         this.description = description;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
